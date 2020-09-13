@@ -14,6 +14,7 @@ class MoviesController < ApplicationController
     @movies = Movie.all
     @ratings = Movie.ratings
     @release_date = Movie.release_date
+    super
   end
   
   
