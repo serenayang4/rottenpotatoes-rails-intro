@@ -10,16 +10,15 @@ class MoviesController < ApplicationController
     # will render app/views/movies/show.<extension> by default
   end
 
-  def initialize
+=begin  def initialize
     @movies = Movie.all
     @ratings = Movie.ratings
     @release_date = Movie.release_date
-    super
   end
-  
+=end
   
   def index
-    redir = false
+=begin    redir = false
     if params[:sort]
       @sorting = params[:sort]
     elsif session[:sort]
@@ -32,6 +31,13 @@ class MoviesController < ApplicationController
     end
   
     session[:sort] = @sorting
+=end
+  @movies = Movie.order(sort_column)
+  end
+  
+  private
+  def sort_column
+    params[:sort] || "title"
   end
 
   def new
