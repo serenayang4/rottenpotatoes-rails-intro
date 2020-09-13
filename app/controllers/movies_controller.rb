@@ -10,10 +10,27 @@ class MoviesController < ApplicationController
     # will render app/views/movies/show.<extension> by default
   end
 
-  def index
+  def initialize
     @movies = Movie.all
+    @ratings = Movie.ratings
+    @release_date = Movie.release_date
+  end
+  
+  
+  def index
+    redirect = false
+    if params[:sort]
+      @sorting = params[:sort]
+    elsif session[:sort]
+      @sorting = session[:sort]
+      redirect = true
+    end
     
-    #clickable: command to sort then refresh
+    if redirect
+      redirect_to movies_path(:sort => @sorting)
+    end
+  
+    session[:sort] = @sorting
   end
 
   def new
