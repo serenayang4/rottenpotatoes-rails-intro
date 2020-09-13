@@ -12,6 +12,8 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all
+    
+    #clickable: command to sort then refresh
   end
 
   def new
