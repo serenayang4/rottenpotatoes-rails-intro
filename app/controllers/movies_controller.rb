@@ -18,15 +18,15 @@ class MoviesController < ApplicationController
   
   
   def index
-    redirect = false
+    redir = false
     if params[:sort]
       @sorting = params[:sort]
     elsif session[:sort]
       @sorting = session[:sort]
-      redirect = true
+      redir = true
     end
     
-    if redirect
+    if redir
       redirect_to movies_path(:sort => @sorting)
     end
   
