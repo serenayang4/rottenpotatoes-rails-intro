@@ -12,7 +12,7 @@ class MoviesController < ApplicationController
   
   def index
     @movies = Movie.order(sort_column)
-    #@ratings = Movie.all_ratings
+    @all_ratings = Movie.all_ratings.keys
   end
   
   private
