@@ -1,8 +1,11 @@
 class Movie < ActiveRecord::Base
-    def hello
-        puts "hello_world"
+    def self.all_ratings
+        result = {}
+        
+        self.select(:rating).uniq.each do |movie|
+          result[movie.rating] = 1
+        end
+        
+        return result
     end
-    #def self.all_ratings
-    #    self.find(:all, :select => "rating", :group => "rating").map(&:rating)
-    #end
 end
