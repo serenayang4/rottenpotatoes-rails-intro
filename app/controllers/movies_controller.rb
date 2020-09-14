@@ -12,6 +12,16 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.order(sort_column)
     @all_ratings = Movie.all_ratings.keys
+    @ratings = params[:ratings]
+    
+    if (@ratings != nil) 
+      ratings = @ratings.keys
+      session[:ratings] = @ratings
+    else
+      ratings = session[:ratings].keys
+    end
+    
+    @movies = Movie.order(session[:sort]).find_all_by_rating(ratings)
   end
   
   private
