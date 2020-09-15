@@ -19,7 +19,7 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.all_ratings.keys
     @ratings = params[:ratings]
     if params.has_key?(:sort)
-      @sort = params[:sort] || "title"
+      @sort = params[:sort] 
       session[:sort] = @sort
     else
       @sort = session[:sort]
