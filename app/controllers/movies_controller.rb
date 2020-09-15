@@ -21,9 +21,9 @@ class MoviesController < ApplicationController
       ratings = Movie.all_ratings
     end
     
-    @movies = Movie.order(sort_column).select { |ratings| ratings == '1'}
+    @movies = Movie.order(sort_column).select { |ratings| ratings == Movie.ratings }
   
-  end
+  end 
   
   private
   def sort_column
