@@ -20,6 +20,7 @@ class MoviesController < ApplicationController
     @ratings = params[:ratings]
     if params[:sort]
       @sort = params[:sort]
+      session[:sort] = @sort
     else
       @sort = session[:sort]
     end
