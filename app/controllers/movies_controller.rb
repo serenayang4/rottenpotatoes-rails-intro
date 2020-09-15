@@ -21,7 +21,7 @@ class MoviesController < ApplicationController
       ratings = session[:ratings].keys
     end
     
-    @movies = Movie.order(session[:sort]).find_all_by_rating(ratings)
+    #@movies = Movie.order(session[:sort]).find_all_by_rating(ratings)
   end
   
   private
