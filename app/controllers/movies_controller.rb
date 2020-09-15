@@ -24,7 +24,7 @@ class MoviesController < ApplicationController
     else
       @sort = session[:sort]
     end
-    @movies = Movie.order(@sort)
+    @movies = Movie.all.order(@sort)
     
     #added rating filter
     if(@ratings != nil)
@@ -40,7 +40,7 @@ class MoviesController < ApplicationController
     end
     
     #redefine movies to have filtered movies
-    @movies = Movie.order(@sort)#.select { |filteredMovies| ratings.include?filteredMovies.rating }
+    @movies = Movie.order(@sort).select { |filteredMovies| ratings.include?filteredMovies.rating }
   
   end 
   
