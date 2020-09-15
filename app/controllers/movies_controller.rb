@@ -14,6 +14,7 @@ class MoviesController < ApplicationController
     #when no boxes ar checked --> redirect to last used
     if(!params.has_key?(:sort) && !params.has_key?(:ratings))
       if(session.has_key?(:sort) || session.has_key?(:ratings))
+        flash.keep
         redirect_to movies_path(:sort=>session[:sort], :ratings=>session[:ratings])
       end
     end
