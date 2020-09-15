@@ -15,10 +15,11 @@ class MoviesController < ApplicationController
         redirect_to movies_path(:sort=>session[:sort], :ratings=>session[:ratings])
       end
     end
-    @movies = Movie.order(sort_column)
+    
     @all_ratings = Movie.all_ratings.keys
     @ratings = params[:ratings]
     @sort = params[:sort] || session[:sort]
+    @movies = Movie.order(@sort)
     
     #added rating filter
     if(@ratings != nil)
@@ -34,7 +35,7 @@ class MoviesController < ApplicationController
     end
     
     #redefine movies to have filtered movies
-    @movies = Movie.order(sort_column).select { |filteredMovies| ratings.include?filteredMovies.rating }
+    @movies = Movie.order(@sort).select { |filteredMovies| ratings.include?filteredMovies.rating }
   
   end 
   
