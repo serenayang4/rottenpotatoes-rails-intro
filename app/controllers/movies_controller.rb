@@ -21,7 +21,7 @@ class MoviesController < ApplicationController
       ratings = Movie.all_ratings
     end
     
-    @movies = Movie.order(sort_column).find_all_by_rating(ratings)
+    @movies = Movie.order(sort_column).find(ratings)
   
   end
   
