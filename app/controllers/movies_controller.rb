@@ -20,6 +20,7 @@ class MoviesController < ApplicationController
       session[:ratings] = @ratings
     else #nothing is checked off
       ratings = Movie.all_ratings.keys
+      session[:ratings] = Movie.all_ratings
     end
     
     #redefine movies to have filtered movies
