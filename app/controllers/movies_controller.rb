@@ -10,6 +10,11 @@ class MoviesController < ApplicationController
   end
   
   def index
+    if(!params.has_key?(:sort) && !params.has_key?(:ratings))
+      if(session.has_key?(:sort) || session.has_key?(:ratings))
+        redirect_to movies_path(:sort=>session[:sort], :ratings=>session[:ratings])
+      end
+    end
     @movies = Movie.order(sort_column)
     @all_ratings = Movie.all_ratings.keys
     @ratings = params[:ratings]
@@ -18,11 +23,11 @@ class MoviesController < ApplicationController
     if(@ratings != nil)
       ratings = @ratings.keys
       session[:ratings] = @ratings
-    else
-      if(!params.has_key?(:commit))
+    else #no checked
+      if(!params.has_key?(:commit)) #not submitted yet
         ratings = Movie.all_ratings.keys
         session[:ratings] = Movie.all_ratings
-      else
+      else #was submitted
         ratings = session[:ratings].keys
       end
     end
