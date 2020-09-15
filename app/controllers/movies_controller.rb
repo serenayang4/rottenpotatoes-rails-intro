@@ -14,13 +14,15 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.all_ratings.keys
     @ratings = params[:ratings]
     
-    if (@ratings != nil) 
+    #added rating filter
+    if (@ratings != nil)  #something is checked off
       ratings = @ratings.keys
       session[:ratings] = @ratings
-    else
+    else #nothing is checked off
       ratings = Movie.all_ratings
     end
     
+    #redefine movies to have filtered movies
     @movies = Movie.order(sort_column).select { |filteredMovies| ratings.include?filteredMovies.rating }
   
   end 
