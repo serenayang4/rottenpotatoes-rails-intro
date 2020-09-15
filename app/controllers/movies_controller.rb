@@ -15,12 +15,16 @@ class MoviesController < ApplicationController
     @ratings = params[:ratings]
     
     #added rating filter
-    if (@ratings != nil)  #something is checked off
+    if(@ratings != nil)
       ratings = @ratings.keys
       session[:ratings] = @ratings
-    else #nothing is checked off
-      ratings = Movie.all_ratings.keys
-      session[:ratings] = Movie.all_ratings
+    else
+      if(!params.has_key?(:commit))
+        ratings = Movie.all_ratings.keys
+        session[:ratings] = Movie.all_ratings
+      else
+        ratings = session[:ratings].keys
+      end
     end
     
     #redefine movies to have filtered movies
