@@ -33,10 +33,10 @@ class MoviesController < ApplicationController
         ratings = session[:ratings].keys
       end
     end
-=end    
+  
     #redefine movies to have filtered movies
     @movies = Movie.order(sort_column).select { |filteredMovies| ratings.include?filteredMovies.rating }
-  
+=end  
   end 
   
   private
