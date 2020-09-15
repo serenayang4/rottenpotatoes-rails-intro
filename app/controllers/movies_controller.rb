@@ -20,13 +20,13 @@ class MoviesController < ApplicationController
     @ratings = params[:ratings]
     @movies = Movie.order(sort_column)
     
-=begin
+
     #added rating filter
     if(@ratings != nil)
       ratings = @ratings.keys
       session[:ratings] = @ratings
     else #no checked
-      if(!params.has_key?(:commit) && !params.has_key?(:sort)) #not submitted yet
+      if(!params.has_key?(:commit)) #not submitted yet
         ratings = Movie.all_ratings.keys
         session[:ratings] = Movie.all_ratings
       else #was submitted
@@ -36,7 +36,7 @@ class MoviesController < ApplicationController
   
     #redefine movies to have filtered movies
     @movies = Movie.order(sort_column).select { |filteredMovies| ratings.include?filteredMovies.rating }
-=end  
+ 
   end 
   
   private
