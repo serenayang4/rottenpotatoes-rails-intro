@@ -24,7 +24,7 @@ class MoviesController < ApplicationController
     else
       @sort = session[:sort]
     end
-    @movies = Movie.all.order(@sort)
+    #@movies = Movie.order(@sort)
     
     #added rating filter
     if(@ratings != nil)
