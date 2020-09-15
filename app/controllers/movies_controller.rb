@@ -21,7 +21,7 @@ class MoviesController < ApplicationController
       ratings = Movie.all_ratings
     end
     
-    @movies = Movie.order(sort_column).select { |ratings| ratings == 'G' }
+    @movies = Movie.order(sort_column).select { |filteredMovies| ratings.include?filteredMovies }
   
   end 
   
