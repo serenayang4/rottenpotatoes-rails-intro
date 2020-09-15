@@ -18,6 +18,7 @@ class MoviesController < ApplicationController
     @movies = Movie.order(sort_column)
     @all_ratings = Movie.all_ratings.keys
     @ratings = params[:ratings]
+    @sort = params[:sort] || session[:sort]
     
     #added rating filter
     if(@ratings != nil)
