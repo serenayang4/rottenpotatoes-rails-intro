@@ -18,14 +18,9 @@ class MoviesController < ApplicationController
     
     @all_ratings = Movie.all_ratings.keys
     @ratings = params[:ratings]
-    if params.has_key?(:sort)
-      @sort = params[:sort] 
-      session[:sort] = @sort
-    else
-      @sort = session[:sort]
-    end
-    #@movies = Movie.order(@sort)
+    @movies = Movie.order(sort_column)
     
+=begin
     #added rating filter
     if(@ratings != nil)
       ratings = @ratings.keys
@@ -38,9 +33,9 @@ class MoviesController < ApplicationController
         ratings = session[:ratings].keys
       end
     end
-    
+=end    
     #redefine movies to have filtered movies
-    @movies = Movie.order(@sort).select { |filteredMovies| ratings.include?filteredMovies.rating }
+    @movies = Movie.order(sort_column).select { |filteredMovies| ratings.include?filteredMovies.rating }
   
   end 
   
