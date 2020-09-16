@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
   end
   
   def index
-=begin    
+ 
     #when no boxes ar checked --> redirect to last used
     if(!params.has_key?(:sort) && !params.has_key?(:ratings))
       if(session.has_key?(:sort) || session.has_key?(:ratings))
@@ -18,7 +18,7 @@ class MoviesController < ApplicationController
         redirect_to movies_path(:sort=>session[:sort], :ratings=>session[:ratings])
       end
     end
-    
+=begin       
     @all_ratings = Movie.all_ratings.keys
     @ratings = params[:ratings]
     
@@ -40,30 +40,30 @@ class MoviesController < ApplicationController
     
 =end
     @all_ratings = Movie.ratings
-    redirect = false
+    #redirect = false
     
     if params[:sort]
        @sorting = params[:sort]
     elsif session[:sort]
        @sorting = session[:sort]
-       redirect = true
+       #redirect = true
     end
 
     if params[:ratings]
        @ratings = params[:ratings]
     elsif session[:ratings]
        @ratings = session[:ratings]
-       redirect = true
+       #redirect = true
     else
        @all_ratings.each do |rat|
            (@ratings ||= { })[rat] = 1
     end
-         redirect = true
+         #redirect = true
     end
 
-   if redirect
-      redirect_to movies_path(sort: @sorting, ratings: @ratings)
-   end
+   #if redirect
+   #   redirect_to movies_path(sort: @sorting, ratings: @ratings)
+   #end
    
     @movies = Movie.where(rating: @ratings.keys).order(@sorting)
     
