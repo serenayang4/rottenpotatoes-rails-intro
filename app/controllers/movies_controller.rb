@@ -66,6 +66,9 @@ class MoviesController < ApplicationController
    end
    
     @movies = Movie.where(rating: ratings).order(sort_column)
+    
+    session[:sort] = @sorting
+    session[:ratings] = @ratings 
   end 
   
   private
