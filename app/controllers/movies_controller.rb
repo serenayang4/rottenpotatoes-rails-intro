@@ -39,7 +39,7 @@ class MoviesController < ApplicationController
     #@movies = Movie.order(sort_column).select { |filteredMovies| ratings.include?filteredMovies.rating }
     
 =end
-    @all_ratings = Movie.all_ratings
+    @all_ratings = Movie.ratings
     redirect = false
     
     if params[:sort]
