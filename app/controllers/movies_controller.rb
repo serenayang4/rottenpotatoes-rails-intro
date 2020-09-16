@@ -19,6 +19,7 @@ class MoviesController < ApplicationController
       end
     end
     
+    @all_ratings = Movie.all_ratings.keys
     @ratings = params[:ratings]
     
     #added rating filter
