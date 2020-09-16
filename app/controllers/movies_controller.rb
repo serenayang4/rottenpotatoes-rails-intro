@@ -10,63 +10,42 @@ class MoviesController < ApplicationController
   end
   
   def index
- 
-    #when no boxes ar checked --> redirect to last used
+    #when no boxes are checked --> redirect to last used
     if(!params.has_key?(:sort) && !params.has_key?(:ratings))
       if(session.has_key?(:sort) || session.has_key?(:ratings))
         flash.keep
         redirect_to movies_path(:sort=>session[:sort], :ratings=>session[:ratings])
       end
     end
-=begin       
-    @all_ratings = Movie.all_ratings.keys
-    @ratings = params[:ratings]
     
-    #added rating filter
-    if(@ratings != nil)
-      ratings = @ratings.keys
-      session[:ratings] = @ratings
-    else #no checked
-      if(!params.has_key?(:commit) && !params.has_key?(:sort)) #not submitted yet
-        ratings = Movie.all_ratings.keys
-        session[:ratings] = Movie.all_ratings
-      else #was submitted
-        ratings = session[:ratings].keys
-      end
-    end
-
-    #redefine movies to have filtered movies
-    #@movies = Movie.order(sort_column).select { |filteredMovies| ratings.include?filteredMovies.rating }
-    
-=end
     @all_ratings = Movie.ratings
     
-    if params[:sort]
+    #sort for title and release date
+    if params[:sort]                #user sets a sort
        @sorting = params[:sort]
-    elsif session[:sort]
+    elsif session[:sort]            #user did not set a sort
        @sorting = session[:sort]
     end
 
-    if params[:ratings]
+    #movie ratings filter
+    if params[:ratings]             #user selected filter(s)
        @ratings = params[:ratings]
-    elsif session[:ratings]
+    elsif session[:ratings]         #user did not select filter(s)
        @ratings = session[:ratings]
-    else
-       @all_ratings.each do |rat|
-           (@ratings ||= { })[rat] = 1
+    else                            #add checked ratings to @ratings
+       @all_ratings.each do |rate|
+           (@ratings ||= { })[rate] = 1
         end
     end
-   
+    
+    #set movies to desired order and filter settings
     @movies = Movie.where(rating: @ratings.keys).order(@sorting)
     
+    #for memory purposes (going back)
     session[:sort] = @sorting
     session[:ratings] = @ratings 
   end 
   
-  private
-  def sort_column
-    params[:sort] || "title"
-  end
 
   def new
     # default: render 'new' template
