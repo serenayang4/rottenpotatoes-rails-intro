@@ -54,8 +54,12 @@ class MoviesController < ApplicationController
     elsif session[:ratings]
        @ratings = session[:ratings]
        redirect = true
+    else
+       @all_ratings.each do |rat|
+           (@ratings ||= { })[rat] = 1
     end
-
+         redirect = true
+    end
 
    if redirect
       redirect_to movies_path(sort: @sorting, ratings: @ratings)
