@@ -1,5 +1,4 @@
 class Movie < ActiveRecord::Base
-=begin
     def self.all_ratings
         result = {}
         
@@ -9,9 +8,4 @@ class Movie < ActiveRecord::Base
         
         return result
     end
-=end
-    def self.all_ratings
-        Movie.select(:rating).distinct.inject([]) {|a,m| a.push m.rating}
-    end
-
 end
