@@ -37,8 +37,6 @@ class MoviesController < ApplicationController
     #redefine movies to have filtered movies
     #@movies = Movie.order(sort_column).select { |filteredMovies| ratings.include?filteredMovies.rating }
     @movies = Movie.where(rating: ratings).order(sort_column)
-    session[:sort] = sort_column
-    session[:ratings] = @ratings
   end 
   
   private
