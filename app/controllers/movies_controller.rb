@@ -65,7 +65,7 @@ class MoviesController < ApplicationController
       redirect_to movies_path(sort: @sorting, ratings: @ratings)
    end
    
-    @movies = Movie.where(rating: ratings).order(sort_column)
+    @movies = Movie.where(rating: @ratings.keys).order(@sorting)
     
     session[:sort] = @sorting
     session[:ratings] = @ratings 
